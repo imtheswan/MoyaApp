@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, Home.class); //Literal
+                Intent intent = new Intent(MainActivity.this, Login.class); //Literal
                 // un intent es para saltar a activities e incluso otras aplicaciones
                 startActivity(intent);
                 finish(); // Termina la actividad y no podremos volver a ella, podriamos hacerlo si no la terminaramos

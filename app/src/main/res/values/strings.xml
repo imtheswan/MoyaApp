@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MoyaParcial2</string>
+    <string name="login">Inicio de Sesión</string>
+    <string name="loginUsuario">Usuario</string>
+    <string name="loginPass">Contraseña</string>
+    <string name="regiterLink">No tienes una cuenta? Crea una</string>
+    <string name="loginLink">Ya tienes una cuenta? Inicia sesión</string>
+    <string name="ingresar">Ingresar</string>
 </resources>
