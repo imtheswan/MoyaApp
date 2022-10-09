@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import Filemanager.FileManager;
+import User.User;
 
 public class Register extends AppCompatActivity {
 
@@ -13,5 +14,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+
     }
 }
