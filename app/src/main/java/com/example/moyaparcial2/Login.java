@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
         actionBar.hide();
 
         inputUsuario = findViewById(R.id.inputUsuario);
-        inputPass = findViewById(R.id.inputPass);
+        inputPass = findViewById(R.id.inputPassR);
         linkRegister = findViewById(R.id.buttonRegister);
         ingresar = findViewById(R.id.buttonIngresar);
 
@@ -39,24 +39,27 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 //Leer registro de JSON
                 //Comprobar usuario y pass
-                Toast.makeText(getApplicationContext(),"Ingresando", Toast.LENGTH_LONG).show();
             }
         });
 
         linkRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Handler handler = new Handler();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(Login.this, Register.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                hitAndRun();
             }
         });
 
+    }
+
+    public void hitAndRun(){
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Login.this, Register.class);
+                Login.this.startActivity(intent);
+                Login.this.finish();
+            }
+        });
     }
 }

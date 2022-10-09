@@ -5,13 +5,13 @@ import com.google.gson.Gson;
 public class JSONmanager {
     Gson JSONmanager = new Gson();
     Exception error;
-    public Boolean getJSON(Object object){
+    public String getJSON(Object object){
         try{
-            JSONmanager.toJson(object);
-            return Boolean.TRUE;
+            String json = JSONmanager.toJson(object);
+            return json;
         } catch (Exception e) {
             error = e;
-            return Boolean.FALSE;
+            return "";
         }
     }
 

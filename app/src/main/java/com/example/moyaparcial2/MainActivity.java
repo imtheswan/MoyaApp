@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(MainActivity.this, Login.class); //Literal
                 // un intent es para saltar a activities e incluso otras aplicaciones
-                startActivity(intent);
-                finish(); // Termina la actividad y no podremos volver a ella, podriamos hacerlo si no la terminaramos
+                MainActivity.this.startActivity(intent);
+                MainActivity.this.finish(); // Termina la actividad y no podremos volver a ella, podriamos hacerlo si no la terminaramos
             }
         }, 1000);
         //finish(); // Termina la actividad y no podremos volver a ella, podriamos hacerlo si no la terminaramos
