@@ -53,4 +53,12 @@ public class UserManager {
             return Boolean.FALSE;
         }
     }
+
+    public  String showUsers(){
+        String userString = "";
+        for (User user : allUsers) {
+            userString = userString + user.getFirstName();
+        }
+        return userString;
+    }
 }

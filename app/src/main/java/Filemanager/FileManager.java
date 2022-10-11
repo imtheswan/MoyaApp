@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+import User.UserManager;
+
 public class FileManager {
     File file;
     Boolean existence = false;
@@ -109,6 +111,22 @@ public class FileManager {
         }
         return Boolean.FALSE;
     }
+
+    public Boolean writeByteStream(UserManager userManager){
+        if(existence){
+            try {
+                FileOutputStream outputStream = new FileOutputStream(file);
+                //outputStream.write(userManager.getBytes(StandardCharsets.UTF_8));
+                outputStream.close();
+                return Boolean.TRUE;
+            } catch (Exception e) {
+                error = e;
+                return null;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
 
     public Boolean deleteFile(){
         Boolean status = Boolean.FALSE;

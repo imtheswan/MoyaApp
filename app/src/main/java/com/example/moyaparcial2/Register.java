@@ -30,8 +30,6 @@ public class Register extends AppCompatActivity {
 
     private User user = new User();
 
-
-
     private JSONmanager jsonm = new JSONmanager();
 
     @Override
@@ -115,14 +113,6 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
-    public boolean registerUser(FileManager userRegistry, JSONmanager jsonManager, UserManager usMG){
-
-        if (true){
-            return true;
-        }
-        return false;
-    }
-
     public boolean writeData(){
         if(verifyData()){
             boolean succes = false;
@@ -132,11 +122,15 @@ public class Register extends AppCompatActivity {
             JSONmanager jsonManager = new JSONmanager();
 
             Boolean creationState = userRegistry.accessFile(getDataDir(), "TablaRegistro.txt");
-            t("AccesFile "+creationState.toString());
-            if(creationState){
+            Log.d("Estado" ,"AccesFile "+creationState.toString());
+            if(creationState) {
                 String registro = userRegistry.readPlainText();
                 usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
-                if (usMG.allUsers.size() <= 0){
+                User newUser = new User();
+                newUser.setFirstName("Juan Pablo");
+                Log.d("Estado", usMG.showUsers());
+            }
+                /*if (usMG.allUsers.size() <= 0){
                     t("Objeto vacio, creando nuevo");
                     usMG = new UserManager();
                 } else{
@@ -153,7 +147,7 @@ public class Register extends AppCompatActivity {
         }else{
             Toast.makeText(getApplicationContext(), "Imposible registrar", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
     }
 
 }
