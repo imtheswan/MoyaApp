@@ -1,9 +1,13 @@
 package User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserManager {
-    private List<User> allUsers;
+    //User[] usersArray = {};
+    //public List<User> allUsers = Arrays.asList(usersArray);
+    public List<User> allUsers = new ArrayList<User>();
 
     public Exception error;
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
 import User.User;
+import User.UserManager;
 
 public class Register extends AppCompatActivity {
 
@@ -27,6 +29,8 @@ public class Register extends AppCompatActivity {
     private FileManager fm =  new FileManager();
 
     private User user = new User();
+
+
 
     private JSONmanager jsonm = new JSONmanager();
 
@@ -51,7 +55,6 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 if(writeData()){
-
                     hitAndRun();
                 }
             }
@@ -90,6 +93,10 @@ public class Register extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "TextInit: " + able.toString(), Toast.LENGTH_LONG).show();
     }
 
+    public void t(String text){
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
     public void getData(){ //Obtiene los valores de las entradas
         String email = inputCorreo.getText().toString();
         String name = inputName.getText().toString();
@@ -108,12 +115,39 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
+    public boolean registerUser(FileManager userRegistry, JSONmanager jsonManager, UserManager usMG){
+
+        if (true){
+            return true;
+        }
+        return false;
+    }
+
     public boolean writeData(){
         if(verifyData()){
-            String json = jsonm.getJSON(user);
-            if(fm.writePlainText(json)){
-                Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
-                return true;
+            boolean succes = false;
+
+            FileManager userRegistry = new FileManager();
+            UserManager usMG;
+            JSONmanager jsonManager = new JSONmanager();
+
+            Boolean creationState = userRegistry.accessFile(getDataDir(), "TablaRegistro.txt");
+            t("AccesFile "+creationState.toString());
+            if(creationState){
+                String registro = userRegistry.readPlainText();
+                usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
+                if (usMG.allUsers.size() <= 0){
+                    t("Objeto vacio, creando nuevo");
+                    usMG = new UserManager();
+                } else{
+                    t("Objeto no vacio");
+                }
+                usMG.addUser(user);
+                String newJson = jsonManager.getJSON(usMG);
+                Log.d("Eroor",newJson);
+                succes = userRegistry.writePlainText(newJson);
+                t("Estado de creacion de usuario " + succes);
+                return succes;
             }
             return false;
         }else{

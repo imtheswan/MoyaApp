@@ -37,8 +37,7 @@ public class Login extends AppCompatActivity {
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Leer registro de JSON
-                //Comprobar usuario y pass
+                getData();
             }
         });
 
@@ -48,7 +47,12 @@ public class Login extends AppCompatActivity {
                 hitAndRun();
             }
         });
+    }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        getData();
     }
 
     public void hitAndRun(){
@@ -61,5 +65,14 @@ public class Login extends AppCompatActivity {
                 Login.this.finish();
             }
         });
+    }
+
+    public void getData(){
+        String name = inputUsuario.getText().toString();
+        String pass = inputUsuario.getText().toString();
+    }
+
+    public Boolean verifyData(){
+        return null;
     }
 }
