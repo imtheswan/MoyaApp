@@ -15,6 +15,19 @@ public class User {
     private int gender;
 
     public Exception error;
+    //constructores
+    public User(String name){
+        this.email = "correo Prueba";
+        this.firstName = name;
+        this.lastName = "nombre Prueba";
+        this.pass = "qwerty";
+        this.age = 10;
+        this.gender = 3;
+    }
+
+    public User (){
+
+    }
 
     public String getFirstName() {
         return firstName;

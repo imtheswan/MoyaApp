@@ -12,7 +12,7 @@ import User.UserManager;
 
 public class FileManager {
     File file;
-    Boolean existence = false;
+    public Boolean existence = false;
     Exception error;
 
     public void lastError() {

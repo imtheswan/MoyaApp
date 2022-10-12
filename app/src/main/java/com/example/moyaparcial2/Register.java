@@ -26,7 +26,7 @@ public class Register extends AppCompatActivity {
     private Button submit;
     private Button linkLogin;
 
-    private FileManager fm =  new FileManager();
+    private FileManager fm = new FileManager();
 
     private User user = new User();
 
@@ -52,7 +52,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getData();
-                if(writeData()){
+                if (writeData()) {
                     hitAndRun();
                 }
             }
@@ -61,18 +61,20 @@ public class Register extends AppCompatActivity {
         linkLogin.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) { hitAndRun(); }
+                    public void onClick(View view) {
+                        hitAndRun();
+                    }
                 }
         );
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         getData();
     }
 
-    public void hitAndRun(){
+    public void hitAndRun() { //cambiar a login activity
         Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
@@ -84,18 +86,18 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public void test (){
+    public void test() {
         String text = fm.readPlainText();
         Boolean able = fm.writePlainText("Hola, mundo");
         Toast.makeText(getApplicationContext(), "TextInit: " + text, Toast.LENGTH_LONG).show();
         Toast.makeText(getApplicationContext(), "TextInit: " + able.toString(), Toast.LENGTH_LONG).show();
     }
 
-    public void t(String text){
+    public void t(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    public void getData(){ //Obtiene los valores de las entradas
+    public void getData() { //Obtiene los valores de las entradas
         String email = inputCorreo.getText().toString();
         String name = inputName.getText().toString();
         String pass = inputPass.getText().toString();
@@ -109,25 +111,23 @@ public class Register extends AppCompatActivity {
         user.setGender(0);
     }
 
-    public boolean verifyData(){ //Verifica que los campos sean correctos
+    public boolean verifyData() { //Verifica que los campos sean correctos
         return true;
     }
 
-    public boolean writeData(){
-        if(verifyData()){
+    public boolean writeData() { //Escribe y registra al usuario
+        if (verifyData()) {
             boolean succes = false;
 
             FileManager userRegistry = new FileManager();
             UserManager usMG;
             JSONmanager jsonManager = new JSONmanager();
 
-            Boolean creationState = userRegistry.accessFile(getDataDir(), "TablaRegistro.txt");
-            Log.d("Estado" ,"AccesFile "+creationState.toString());
-            if(creationState) {
+            Boolean creationState = userRegistry.accessFile(getDataDir(), "RegistroMoyaApp.json");
+            Log.d("Estado", "AccesFile " + creationState.toString());
+            if (creationState) {
                 String registro = userRegistry.readPlainText();
                 usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
-                User newUser = new User();
-                newUser.setFirstName("Juan Pablo");
                 Log.d("Estado", usMG.showUsers());
             }
                 /*if (usMG.allUsers.size() <= 0){
@@ -148,6 +148,7 @@ public class Register extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Imposible registrar", Toast.LENGTH_SHORT).show();
             return false;
         }*/
+        }
+        return false;
     }
-
 }
