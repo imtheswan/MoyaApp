@@ -80,7 +80,19 @@ public class Login extends AppCompatActivity {
                     boolean auth = userManager.authenticateUser(user.getEmail(), user.getPass());
                     if(auth) {
                         Toast.makeText(getApplicationContext(), "Usuario valido", Toast.LENGTH_SHORT).show();
-                        hitAndRun(HomeActivity.class);
+                        try{
+                            Handler handler = new Handler();
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(Login.this, Principal.class);
+                                    Login.this.startActivity(intent);
+                                    Login.this.finish();
+                                }
+                            });
+                        } catch(Exception e){
+                            Log.d("Estado", e.getStackTrace().toString());
+                        }
                     }
                 }
             }
