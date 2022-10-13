@@ -28,9 +28,9 @@ public class FileManager {
             } else {
                 if (!file.createNewFile()) {
                     existence = false;
-                    return false;
+                    return null;
                 }
-                return true;
+                return false;
             }
         } catch (Exception e) {
             existence = false;

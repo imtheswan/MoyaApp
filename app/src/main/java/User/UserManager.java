@@ -34,6 +34,15 @@ public class UserManager {
         return null;
     }
 
+    public boolean authenticateUser(String correo, String pass){
+        for (User user: allUsers) {
+            if(user.getEmail().equals(correo)
+                    && user.getPass().equals(pass))
+                return true;
+        }
+        return false;
+    }
+
     public Boolean updateUser(int index, User newUser){
         try{
             allUsers.set(index, newUser);
