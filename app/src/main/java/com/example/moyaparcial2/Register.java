@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
 import User.User;
@@ -53,7 +55,10 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 if (writeData()) {
+                    t("Buen registro @_@");
                     hitAndRun();
+                } else{
+                    t("Error al registrar usuario");
                 }
             }
         });
@@ -120,34 +125,21 @@ public class Register extends AppCompatActivity {
             boolean succes = false;
 
             FileManager userRegistry = new FileManager();
-            UserManager usMG;
             JSONmanager jsonManager = new JSONmanager();
 
             Boolean creationState = userRegistry.accessFile(getDataDir(), "RegistroMoyaApp.json");
             Log.d("Estado", "AccesFile " + creationState.toString());
             if (creationState) {
                 String registro = userRegistry.readPlainText();
+                Log.d("Estado", "JSON recuperado: " + registro);
+                UserManager usMG;
                 usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
-                Log.d("Estado", usMG.showUsers());
-            }
-                /*if (usMG.allUsers.size() <= 0){
-                    t("Objeto vacio, creando nuevo");
-                    usMG = new UserManager();
-                } else{
-                    t("Objeto no vacio");
-                }
+                Log.d("Estado", "Recuperados: " + usMG.showUsers());
                 usMG.addUser(user);
-                String newJson = jsonManager.getJSON(usMG);
-                Log.d("Eroor",newJson);
-                succes = userRegistry.writePlainText(newJson);
-                t("Estado de creacion de usuario " + succes);
-                return succes;
+                registro = jsonManager.getJSON(usMG);
+                creationState = userRegistry.writePlainText(registro);
+                return creationState;
             }
-            return false;
-        }else{
-            Toast.makeText(getApplicationContext(), "Imposible registrar", Toast.LENGTH_SHORT).show();
-            return false;
-        }*/
         }
         return false;
     }

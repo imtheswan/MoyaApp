@@ -71,10 +71,9 @@ public class Login extends AppCompatActivity {
             Log.d("TMY", "No hay archivo registro");
             UserManager userManager = new UserManager();
             User testUser = new User("Fulano Prueba");
-
+            userManager.addUser(testUser);
             JSONmanager jsonManager = new JSONmanager();
-            String json = jsonManager.getJSON(testUser);
-            jsonManager.getJSON(testUser);
+            String json = jsonManager.getJSON(userManager);
             Log.d("TMY", "JSON: " + json);
             FileManager newFile = new FileManager();
             Boolean newFileExists = newFile.accessFile(getDataDir(), "RegistroMoyaApp.json");
