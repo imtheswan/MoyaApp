@@ -1,5 +1,6 @@
 package com.example.moyaparcial2;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -38,6 +39,10 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         inputName = findViewById(R.id.inputName);
         inputCorreo = findViewById(R.id.inputEmail);
         inputPass = findViewById(R.id.inputPassR);

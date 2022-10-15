@@ -23,16 +23,13 @@ public class Login extends AppCompatActivity {
 
     private EditText inputUsuario;
     private EditText inputPass;
-
     private Button linkRegister;
     private Button ingresar;
 
     private User user = new User();
 
     FileManager fileManager = new FileManager();
-
     JSONmanager jsonManager = new JSONmanager();
-
     UserManager userManager = new UserManager();
 
     @Override
@@ -43,7 +40,7 @@ public class Login extends AppCompatActivity {
         actionBar.hide();
 
         inputUsuario = findViewById(R.id.inputUsuario);
-        inputPass = findViewById(R.id.inputPassR);
+        inputPass = findViewById(R.id.editTextPass);
         linkRegister = findViewById(R.id.buttonRegister);
         ingresar = findViewById(R.id.buttonIngresar);
 
@@ -93,6 +90,8 @@ public class Login extends AppCompatActivity {
                         } catch(Exception e){
                             Log.d("Estado", e.getStackTrace().toString());
                         }
+                    } else{
+                        Toast.makeText(getApplicationContext(), "Datos incorrectos", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -132,6 +131,7 @@ public class Login extends AppCompatActivity {
     }
 
     public boolean verifyData(){
+        getData();
         return true;
     }
 }

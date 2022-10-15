@@ -5,9 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Login">
+    tools:context=".Login"
+    style="@style/AppTheme.NoMargin"
+    >
 
     <LinearLayout
+        style="@style/AppTheme.NoMargin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -15,60 +18,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
 
         <TextView
             android:id="@+id/textView4"
+            style="@style/AppTheme.tittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login"
-        />
+            android:text="@string/login" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/AppTheme.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labelEmail" />
 
         <EditText
             android:id="@+id/inputUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AppTheme.Input.Email"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:hint="@string/hint_correo"
             />
 
         <TextView
             android:id="@+id/textView3"
+            style="@style/AppTheme.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/labelPass"
-            />
+            android:text="@string/labelPass" />
 
         <EditText
-            android:id="@+id/inputPassR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/editTextPass"
+            style="@style/AppTheme.Input.Pass"
             android:ems="10"
-            android:inputType="textPersonName"
-            />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:text="@string/labelUsuario"
-            android:textColor="@color/black"
-            android:textSize="28sp" />
-
-        <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="366dp"
-            android:layout_height="48dp"
-            android:text="@string/regiterLink"
-             />
+            android:hint="@string/hint_pass"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/buttonIngresar"
+            style="@style/AppTheme.Input.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ingresar" />
+
+            <Button
+            android:id="@+id/buttonRegister"
+            style="@style/AppTheme.Input.Button.Down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/regiterLink" />
+
     </LinearLayout>
 
 

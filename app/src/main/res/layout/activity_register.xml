@@ -4,140 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    tools:context=".Register"
+    style="@style/AppTheme.NoMargin">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.831">
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/AppTheme.NoMargin"
+            >
+
             <TextView
                 android:id="@+id/tittleRegistro"
-                android:layout_height="wrap_content"
-                android:text="@string/registro"
+                style="@style/AppTheme.tittle"
                 android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/registro"
+                />
 
             <TextView
                 android:id="@+id/nameLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/labelUsuario"
-                android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_gravity="center"/>/>
+                style="@style/AppTheme.Label"
+                />
 
             <EditText
                 android:id="@+id/inputName"
+                style="@style/AppTheme.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="@string/hint_name"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="Name" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:textColorHint="#757575" />
 
             <TextView
                 android:id="@+id/emailLabel"
-                android:layout_height="wrap_content"
-                android:text="@string/labelEmail"
+                style="@style/AppTheme.Label"
                 android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_gravity="center"/>
+                android:layout_height="wrap_content"
+                android:text="@string/labelEmail" />
 
             <EditText
                 android:id="@+id/inputEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/AppTheme.Input.Email"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:text="Name" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:hint="@string/hint_correo"
+                android:inputType="textEmailSubject"
+                android:textColorHint="#757575" />
 
             <TextView
                 android:id="@+id/passLabel"
+                style="@style/AppTheme.Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/labelPass" />
 
             <EditText
                 android:id="@+id/inputPassR"
+                style="@style/AppTheme.Input.Pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="@string/hint_pass"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="Name" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:textColorHint="#757575" />
 
             <TextView
                 android:id="@+id/ageLebel"
+                style="@style/AppTheme.Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/labelAge" />
 
             <EditText
                 android:id="@+id/inputAge"
+                style="@style/AppTheme.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:text="Name" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <Button
                 android:id="@+id/submitButton"
+                style="@style/AppTheme.Input.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/registro" />
 
             <Button
                 android:id="@+id/loginLinkButton"
+                style="@style/AppTheme.Input.Button.Down"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/loginLink" />
+
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

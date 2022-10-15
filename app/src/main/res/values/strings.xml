@@ -18,6 +18,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
     <string name="bienvenida">Bienvenido a la App de JP Moya!!\nApp en construcción</string>
+    <string name="hint_correo">Tucorreo@correo.com</string>
+    <string name="hint_pass">Password</string>
+    <string name="hint_name">Harrison Wells</string>
 </resources>
