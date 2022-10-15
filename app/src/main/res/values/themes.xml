@@ -17,6 +17,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="FormTheme">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">Black</item>
+        <item name="android:layout_margin">30dp</item>
+    </style>
     <style name="Theme.MoyaParcial2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.MoyaParcial2.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
