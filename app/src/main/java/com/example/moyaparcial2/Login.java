@@ -72,11 +72,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(getData()){
+                    DigestManager digestManager = new DigestManager();
                     fileManager.accessFile(getDataDir(),"RegistroMoyaApp.json");
                     String registroJSON = fileManager.readPlainText();
                     Log.d("Estado", "JSON LOGIN " + registroJSON);
                     userManager = (UserManager) jsonManager.getObject(registroJSON, UserManager.class);
-                    boolean auth = userManager.authenticateUser(user.getEmail(), user.getPass());
+                    boolean auth = userManager.authenticateUser(user.getEmail(), user.getPassHash());
                     Log.d("Estado", "AUTH " + user.getEmail() + user.getPass());
                     if(auth) {
                         Toast.makeText(getApplicationContext(), "Usuario valido", Toast.LENGTH_SHORT).show();
@@ -135,6 +136,7 @@ public class Login extends AppCompatActivity {
         if(validator.verifyEmail(email)){
             user.setEmail(email);
             user.setPass(pass);
+            user.setPassHash();
             return true;
         } else{
             inputUsuario.setError("Escribe un correo válido");

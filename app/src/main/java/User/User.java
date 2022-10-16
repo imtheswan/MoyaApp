@@ -1,5 +1,7 @@
 package User;
 
+import com.example.moyaparcial2.DigestManager;
+
 public class User {
 
     private String firstName;
@@ -14,6 +16,7 @@ public class User {
     private String description;
     private boolean arView;
     private boolean publicProfile;
+    private String passHash;
 
     public Exception error;
     //constructores
@@ -28,6 +31,20 @@ public class User {
 
     public User (){
 
+    }
+
+    public void setPassHash(String pass){
+        DigestManager digestManager = new DigestManager();
+        byte[] hash = digestManager.createSha1(pass);
+        this.passHash = digestManager.bytesToHex(hash);
+    }
+    public void setPassHash(){
+        DigestManager digestManager = new DigestManager();
+        byte[] hash = digestManager.createSha1(this.pass.concat(this.email));
+        this.passHash = digestManager.bytesToHex(hash);
+    }
+    public String getPassHash(){
+        return this.passHash;
     }
 
     public String getFirstName() {

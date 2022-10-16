@@ -1,5 +1,7 @@
 package User;
 
+import com.example.moyaparcial2.DigestManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,9 +37,10 @@ public class UserManager {
     }
 
     public boolean authenticateUser(String correo, String pass){
+        DigestManager digestManager = new DigestManager();
         for (User user: allUsers) {
             if(user.getEmail().equals(correo)
-                    && user.getPass().equals(pass))
+                    && (user.getPassHash().equals(pass) || user.getPass().equals(pass)))
                 return true;
         }
         return false;

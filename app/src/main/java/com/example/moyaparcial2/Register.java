@@ -177,6 +177,7 @@ public class Register extends AppCompatActivity {
             error = true;
         }
         if (!error){
+            DigestManager digestManager = new DigestManager();
             user.setFirstName(name);
             user.setLastName(lastName);
             user.setNickName(nickName);
@@ -184,6 +185,7 @@ public class Register extends AppCompatActivity {
             user.setPhone(Integer.parseInt(phone));
             //// GET PASS DIGEST
             user.setPass(pass);
+            user.setPassHash();
             user.setAge(Integer.parseInt(edad));
             user.setBirth(nacimiento);
             if(hombre)
