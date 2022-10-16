@@ -21,26 +21,38 @@
         <item name="android:fontFamily">@font/silkscreen_regular</item>
     </style>
 
+    <style name="AppTheme.Label.RadioButtonGroup" parent="AppTheme.Label">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
     <style name="AppTheme.Input" parent="AppBaseTheme">
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/silkscreen_regular</item>
         <item name="android:drawablePadding">10dp</item>
-        <item name="android:gravity"></item>
-        <item name="android:height">50dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">280dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/border_input</item>
     </style>
 
     <style name="AppTheme.Input.Email" parent="AppTheme.Input">
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:drawableStart">@drawable/ic_email</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:layout_width">300dp</item>
-        <item name="android:layout_height">48dp</item>
     </style>
 
     <style name="AppTheme.Input.Pass" parent="AppTheme.Input">
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:drawableStart">@drawable/ic_lock</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:layout_width">300dp</item>
-        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="AppTheme.Input.RadioButton" parent="AppTheme.Input">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:radioButtonStyle">@color/black</item>
     </style>
 
     <style name="AppTheme.Input.Button" parent="AppTheme.Input">
@@ -49,8 +61,14 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="AppTheme.Input.Switch" parent="AppTheme.Input">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
     <style name="AppTheme.Input.Button.Down" parent="AppTheme.Input.Button">
-        <item name="android:width">370dp</item>
+        <item name="android:width">350dp</item>
         <item name="android:background">@drawable/register_login</item>
     </style>
 </resources>

@@ -1,18 +1,19 @@
 package User;
 
-import java.util.List;
-
 public class User {
 
-
-
-    private String email;
     private String firstName;
     private String lastName;
+    private String nickName;
+    private String email;
+    private int phone;
     private String pass;
-
     private int age;
+    private String birth;
     private int gender;
+    private String description;
+    private boolean arView;
+    private boolean publicProfile;
 
     public Exception error;
     //constructores
@@ -76,4 +77,62 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isArView() {
+        return arView;
+    }
+
+    public void setArView(boolean arView) {
+        this.arView = arView;
+    }
+
+    public boolean isPublicProfile() {
+        return publicProfile;
+    }
+
+    public void setPublicProfile(boolean publicProfile) {
+        this.publicProfile = publicProfile;
+    }
+
+    public Exception getError() {
+        return error;
+    }
+
+    public void setError(Exception error) {
+        this.error = error;
+    }
+
 }

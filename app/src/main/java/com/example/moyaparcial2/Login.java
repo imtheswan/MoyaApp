@@ -124,14 +124,13 @@ public class Login extends AppCompatActivity {
     }
 
     public void getData(){
-        String email = inputUsuario.getText().toString();
+        String email = inputUsuario.getText().toString().toLowerCase();
         String pass = inputUsuario.getText().toString();
         user.setEmail(email);
         user.setPass(pass);
     }
 
     public boolean verifyData(){
-        getData();
         return true;
     }
 }

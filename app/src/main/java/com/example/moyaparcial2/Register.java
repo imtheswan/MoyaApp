@@ -10,30 +10,41 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
+import android.widget.ToggleButton;
 
 import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
 import User.User;
 import User.UserManager;
+import Validator.Validator;
 
 public class Register extends AppCompatActivity {
-
+    // UI objects
     private EditText inputName;
+    private EditText inputLastName;
+    private EditText inputNickName;
+    private EditText inputEmail;
+    private EditText inputPhone;
     private EditText inputPass;
-    private EditText inputCorreo;
-    private EditText inputEdad;
+    private EditText inputAge;
+    private EditText inputBirth;
+    private RadioButton inputMan;
+    private RadioButton inputWoman;
+    private EditText inputDescription;
+    private Switch inputARView;
+    private ToggleButton inputPublicProfile;
 
     private Button submit;
     private Button linkLogin;
-
+    // Managment object
     private FileManager fm = new FileManager();
-
     private User user = new User();
-
     private JSONmanager jsonm = new JSONmanager();
+
+    private boolean verifiedData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +55,18 @@ public class Register extends AppCompatActivity {
         actionBar.hide();
 
         inputName = findViewById(R.id.inputName);
-        inputCorreo = findViewById(R.id.inputEmail);
+        inputLastName = findViewById(R.id.inputLastName);
+        inputNickName = findViewById(R.id.inputNickName);
+        inputEmail = findViewById(R.id.inputEmail);
+        inputPhone = findViewById(R.id.inputPhone);
         inputPass = findViewById(R.id.inputPassR);
-        inputEdad = findViewById(R.id.inputAge);
-
+        inputAge = findViewById(R.id.inputAge);
+        inputBirth = findViewById(R.id.inputBirth);
+        inputMan = findViewById(R.id.radioMan);
+        inputWoman = findViewById(R.id.radioWoman);
+        inputDescription = findViewById(R.id.inputDescription);
+        inputARView = findViewById(R.id.switchAR);
+        inputPublicProfile = findViewById(R.id.inputPublicProfile);
         submit = findViewById(R.id.submitButton);
         linkLogin = findViewById(R.id.loginLinkButton);
 
@@ -58,12 +77,17 @@ public class Register extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData();
-                if (writeData()) {
-                    t("Buen registro @_@");
-                    hitAndRun();
-                } else{
-                    t("Error al registrar usuario");
+                boolean valid = getData();
+                if(valid){
+                    if (writeData()) {
+                        t("Buen registro @_@");
+                        hitAndRun();
+                    } else{
+                        t("Error al registrar usuario");
+                    }
+                }
+                else{
+                    t("Por favor, corriga los datos");
                 }
             }
         });
@@ -107,21 +131,60 @@ public class Register extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    public void getData() { //Obtiene los valores de las entradas
-        String email = inputCorreo.getText().toString();
+    public boolean getData() { //Obtiene los valores de las entradas
         String name = inputName.getText().toString();
+        String lastName = inputLastName.getText().toString();
+        String nickName = inputNickName.getText().toString();
+        String email = inputEmail.getText().toString();
+        String phone = inputPhone.getText().toString();
         String pass = inputPass.getText().toString();
-        //int edad = Integer.valueOf(inputEdad.getText().toString());
-        int edad = 17;
-        user.setEmail(email);
-        user.setFirstName(name);
-        user.setLastName("Mohamed");
-        user.setPass(pass);
-        user.setAge(edad);
-        user.setGender(0);
+        String edad = inputAge.getText().toString();
+        String nacimiento = inputAge.getText().toString();
+        boolean hombre = inputMan.isChecked();
+        boolean mujer = inputWoman.isChecked();
+        String descripcion = inputDescription.getText().toString();
+        boolean arView = inputARView.isChecked();
+        boolean perfilPublico = inputPublicProfile.isChecked();
+        Validator validator = new Validator();
+        Log.d("Estado", "name " + Boolean.toString(validator.verifyText(name)));
+        Log.d("Estado", "lastname " + Boolean.toString(validator.verifyText(name)));
+        Log.d("Estado", "email" + Boolean.toString(validator.verifyEmail(email)));
+        Log.d("Estado", "phone " + Boolean.toString(validator.verifyNumber(phone)));
+        Log.d("Estado", "age " + Boolean.toString(validator.verifyNumber(edad)));
+        Log.d("Estado", "birth " + Boolean.toString(validator.verifyBirth(nacimiento)));
+        if(
+                        validator.verifyText(name) &&
+                        validator.verifyText(lastName) &&
+                        validator.verifyEmail(email) &&
+                        validator.verifyNumber(phone) && phone.length()>=8 && phone.length() <= 12 &&
+                        validator.verifyNumber(edad) &&
+                        validator.verifyBirth(nacimiento)){
+            user.setFirstName(name);
+            user.setLastName(lastName);
+            user.setNickName(nickName);
+            user.setEmail(email);
+            user.setPhone(Integer.parseInt(phone));
+            //// GET PASS DIGEST
+            user.setPass(pass);
+            user.setAge(Integer.parseInt(edad));
+            user.setBirth(nacimiento);
+            if(hombre)
+                user.setGender(1);
+            else
+                user.setGender(2);
+            user.setDescription(descripcion);
+            user.setArView(arView);
+            user.setPublicProfile(perfilPublico);
+            return true;
+        }
+        return false;
     }
 
     public boolean verifyData() { //Verifica que los campos sean correctos
+        getData();
+        Validator validator = new Validator();
+        boolean validEmail = validator.verifyEmail(user.getEmail());
+
         return true;
     }
 

@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,22 +31,51 @@
 
             <TextView
                 android:id="@+id/nameLabel"
+                style="@style/AppTheme.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/labelUsuario"
-                style="@style/AppTheme.Label"
-                />
+                android:text="@string/labelFirstName" />
 
             <EditText
                 android:id="@+id/inputName"
                 style="@style/AppTheme.Input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_name"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:textColorHint="#757575" />
+                android:textColorHint="#757575"
+                android:autofillHints="" />
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/AppTheme.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/LabelApellido"
+                />
+
+            <EditText
+                android:id="@+id/inputLastName"
+                style="@style/AppTheme.Input"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/hint_last_name"
+                android:autofillHints="" />
+
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/AppTheme.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelApodo" />
+
+            <EditText
+                android:id="@+id/inputNickName"
+                style="@style/AppTheme.Input"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/hint_apodo"
+                android:autofillHints="" />
 
             <TextView
                 android:id="@+id/emailLabel"
@@ -59,9 +88,24 @@
                 android:id="@+id/inputEmail"
                 style="@style/AppTheme.Input.Email"
                 android:ems="10"
+                android:minHeight="48dp"
+
                 android:hint="@string/hint_correo"
                 android:inputType="textEmailSubject"
                 android:textColorHint="#757575" />
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/AppTheme.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelPhone" />
+
+            <EditText
+                android:id="@+id/inputPhone"
+                style="@style/AppTheme.Input"
+                android:ems="10"
+                android:inputType="phone"/>
 
             <TextView
                 android:id="@+id/passLabel"
@@ -73,13 +117,11 @@
             <EditText
                 android:id="@+id/inputPassR"
                 style="@style/AppTheme.Input.Pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_pass"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:textColorHint="#757575" />
+                android:textColorHint="#757575"/>
 
             <TextView
                 android:id="@+id/ageLebel"
@@ -90,13 +132,90 @@
 
             <EditText
                 android:id="@+id/inputAge"
+                android:ems="10"
+                android:inputType="number"
                 style="@style/AppTheme.Input"
+                android:hint="@string/hint_age"/>
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/AppTheme.Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/labelBirth" />
+
+            <EditText
+                android:id="@+id/inputBirth"
+                style="@style/AppTheme.Input"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:text="Name" />
+                android:inputType="date"
+                android:hint="@string/hint_birth"/>
+
+            <TextView
+                android:id="@+id/textView11"
+                style="@style/AppTheme.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelGender"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                style="@style/AppTheme.Label.RadioButtonGroup">
+
+                <RadioButton
+                    android:id="@+id/radioMan"
+                    style="@style/AppTheme.Input.RadioButton"
+                    android:background="@color/white"
+                    android:text="@string/radioHombre" />
+
+                <RadioButton
+                    android:id="@+id/radioWoman"
+                    style="@style/AppTheme.Input.RadioButton"
+                    android:background="@color/white"
+                    android:text="@string/radioMujer" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/AppTheme.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelDescripcion" />
+
+            <EditText
+                android:id="@+id/inputDescription"
+                style="@style/AppTheme.Input"
+                android:ems="10"
+                android:gravity="start"
+                android:lines="5"
+                android:inputType="textMultiLine"
+
+                android:hint="@string/hint_mi_descripcion"/>
+
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/AppTheme.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelARView" />
+
+            <Switch
+                android:id="@+id/switchAR"
+                style="@style/AppTheme.Input.Switch"
+                android:text="@string/hint_AR" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelPerfilPublico" />
+
+            <ToggleButton
+                android:id="@+id/inputPublicProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="quepod" />
 
             <Button
                 android:id="@+id/submitButton"

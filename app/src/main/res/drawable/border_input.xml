@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true" android:state_focused="true">
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+            <item>
+                <shape
+                    android:shape="rectangle">
+                    <stroke android:width="2dp" android:color="#000" />
+                    <solid android:color="#FFF" />
+
+                </shape>
+            </item>
+
+            <item android:top="2dp" android:bottom="2dp">
+                <shape
+                    android:shape="rectangle">
+                    <stroke android:width="2dp" android:color="#FFF" />
+                    <gradient android:startColor="#E3E3E3" android:endColor="@color/white" android:type="linear" android:angle="90" android:centerColor="@color/white" android:centerY="0.2"/>
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+    <item android:state_enabled="true">
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+            <item>
+                <shape
+                    android:shape="rectangle">
+                    <stroke android:width="2dp" android:color="#000" />
+                    <solid android:color="#FFF" />
+
+                </shape>
+            </item>
+
+            <item android:top="1dp" android:bottom="1dp">
+                <shape
+                    android:shape="rectangle">
+                    <stroke android:width="2dp" android:color="#FFF" />
+                    <solid android:color="#00000000" />
+                </shape>
+            </item>
+
+        </layer-list>
+
+
+    </item>
+</selector>
