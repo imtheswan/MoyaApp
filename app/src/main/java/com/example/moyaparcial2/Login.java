@@ -18,6 +18,7 @@ import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
 import User.User;
 import User.UserManager;
+import Validator.Validator;
 
 public class Login extends AppCompatActivity {
 
@@ -70,11 +71,13 @@ public class Login extends AppCompatActivity {
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData();
-                if(verifyData()){
+                if(getData()){
+                    fileManager.accessFile(getDataDir(),"RegistroMoyaApp.json");
                     String registroJSON = fileManager.readPlainText();
+                    Log.d("Estado", "JSON LOGIN " + registroJSON);
                     userManager = (UserManager) jsonManager.getObject(registroJSON, UserManager.class);
                     boolean auth = userManager.authenticateUser(user.getEmail(), user.getPass());
+                    Log.d("Estado", "AUTH " + user.getEmail() + user.getPass());
                     if(auth) {
                         Toast.makeText(getApplicationContext(), "Usuario valido", Toast.LENGTH_SHORT).show();
                         try{
@@ -105,12 +108,6 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        getData();
-    }
-
     public void hitAndRun(Class activity){
         Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -123,14 +120,25 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void getData(){
+    public boolean getData(){
         String email = inputUsuario.getText().toString().toLowerCase();
-        String pass = inputUsuario.getText().toString();
-        user.setEmail(email);
-        user.setPass(pass);
-    }
-
-    public boolean verifyData(){
-        return true;
+        String pass = inputPass.getText().toString();
+        if(email.length() == 0){
+            inputUsuario.setError("Campo Requerido");
+            return false;
+        }
+        if(pass.length() == 0){
+            inputPass.setError("Campo Requerido");
+            return false;
+        }
+        Validator validator = new Validator();
+        if(validator.verifyEmail(email)){
+            user.setEmail(email);
+            user.setPass(pass);
+            return true;
+        } else{
+            inputUsuario.setError("Escribe un correo válido");
+            return false;
+        }
     }
 }

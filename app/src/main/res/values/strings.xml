@@ -29,10 +29,10 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="bienvenida">Bienvenido a la App de JP Moya!!\n\nApp en construcción</string>
-    <string name="hint_correo">Tucorreo@correo.com</string>
+    <string name="hint_correo">tucorreo@correo.com</string>
     <string name="hint_pass">Password</string>
-    <string name="hint_name">Harrison</string>
-    <string name="hint_last_name">Wells</string>
+    <string name="hint_name">Isaac</string>
+    <string name="hint_last_name">Asimov</string>
     <string name="hint_apodo">H.S.</string>
     <string name="hint_phone">55893654</string>
     <string name="hint_age">17</string>

@@ -40,9 +40,9 @@ public class Register extends AppCompatActivity {
     private Button submit;
     private Button linkLogin;
     // Managment object
-    private FileManager fm = new FileManager();
+    private FileManager userRegistry = new FileManager();
     private User user = new User();
-    private JSONmanager jsonm = new JSONmanager();
+    private JSONmanager jsonManager = new JSONmanager();
 
     private boolean verifiedData = false;
 
@@ -69,8 +69,6 @@ public class Register extends AppCompatActivity {
         inputPublicProfile = findViewById(R.id.inputPublicProfile);
         submit = findViewById(R.id.submitButton);
         linkLogin = findViewById(R.id.loginLinkButton);
-
-        fm.accessFile(getDataDir(), "RegistroTest1.txt");
 
         Toast.makeText(getApplicationContext(), getDataDir().toString(), Toast.LENGTH_SHORT).show();
 
@@ -102,12 +100,6 @@ public class Register extends AppCompatActivity {
         );
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getData();
-    }
-
     public void hitAndRun() { //cambiar a login activity
         Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -121,8 +113,8 @@ public class Register extends AppCompatActivity {
     }
 
     public void test() {
-        String text = fm.readPlainText();
-        Boolean able = fm.writePlainText("Hola, mundo");
+        String text = userRegistry.readPlainText();
+        Boolean able = userRegistry.writePlainText("Hola, mundo");
         Toast.makeText(getApplicationContext(), "TextInit: " + text, Toast.LENGTH_LONG).show();
         Toast.makeText(getApplicationContext(), "TextInit: " + able.toString(), Toast.LENGTH_LONG).show();
     }
@@ -132,33 +124,59 @@ public class Register extends AppCompatActivity {
     }
 
     public boolean getData() { //Obtiene los valores de las entradas
+
+        Validator ovalidator = new Validator();
+        Log.d("Estado", "EMAIL " + Boolean.toString(ovalidator.verifyEmail("juanpamora31@gmail.com")));
+        String bir = "31/05/2005";
+        Log.d("Estado", "BIRTH " + Integer.toString(bir.length()));
+        Log.d("Estado", "BIRTH " + bir.charAt(2));
+        Log.d("Estado", "BIRTH " + bir.charAt(5));
+        Log.d("Estado", "BIRTH " + Boolean.toString((bir.length() == 10) && bir.charAt(2) == '/' && bir.charAt(5) == '/'));
+
         String name = inputName.getText().toString();
         String lastName = inputLastName.getText().toString();
         String nickName = inputNickName.getText().toString();
-        String email = inputEmail.getText().toString();
+        String email = inputEmail.getText().toString().toLowerCase();
         String phone = inputPhone.getText().toString();
         String pass = inputPass.getText().toString();
         String edad = inputAge.getText().toString();
-        String nacimiento = inputAge.getText().toString();
+        String nacimiento = inputBirth.getText().toString();
         boolean hombre = inputMan.isChecked();
         boolean mujer = inputWoman.isChecked();
         String descripcion = inputDescription.getText().toString();
         boolean arView = inputARView.isChecked();
         boolean perfilPublico = inputPublicProfile.isChecked();
         Validator validator = new Validator();
-        Log.d("Estado", "name " + Boolean.toString(validator.verifyText(name)));
-        Log.d("Estado", "lastname " + Boolean.toString(validator.verifyText(name)));
-        Log.d("Estado", "email" + Boolean.toString(validator.verifyEmail(email)));
-        Log.d("Estado", "phone " + Boolean.toString(validator.verifyNumber(phone)));
-        Log.d("Estado", "age " + Boolean.toString(validator.verifyNumber(edad)));
-        Log.d("Estado", "birth " + Boolean.toString(validator.verifyBirth(nacimiento)));
-        if(
-                        validator.verifyText(name) &&
-                        validator.verifyText(lastName) &&
-                        validator.verifyEmail(email) &&
-                        validator.verifyNumber(phone) && phone.length()>=8 && phone.length() <= 12 &&
-                        validator.verifyNumber(edad) &&
-                        validator.verifyBirth(nacimiento)){
+        boolean error = false;
+        if(!validator.verifyText(name)){
+            inputName.setError("Nombre inválido");
+            error = true;
+        }
+        if (!validator.verifyText(lastName)){
+            inputLastName.setError("Apellido inválido");
+            error = true;
+        }
+        if (!validator.verifyEmail(email)){
+            inputEmail.setError("Correo inválido");
+            error = true;
+        }
+        if (!validator.verifyPhone(phone)){
+            inputPhone.setError("Teléfono inválido");
+            error = true;
+        }
+        if (!validator.verifyNumber(edad)){
+            inputAge.setError("Edad inválida");
+            error = true;
+        }
+        if(!validator.verifyBirth(nacimiento)){
+            inputBirth.setError("Edad inválida");
+            error = true;
+        }
+        if(pass.length() == 0){
+            inputPass.setError("Necesita contraseña");
+            error = true;
+        }
+        if (!error){
             user.setFirstName(name);
             user.setLastName(lastName);
             user.setNickName(nickName);
@@ -178,37 +196,20 @@ public class Register extends AppCompatActivity {
             return true;
         }
         return false;
-    }
 
-    public boolean verifyData() { //Verifica que los campos sean correctos
-        getData();
-        Validator validator = new Validator();
-        boolean validEmail = validator.verifyEmail(user.getEmail());
-
-        return true;
     }
 
     public boolean writeData() { //Escribe y registra al usuario
-        if (verifyData()) {
-            boolean succes = false;
-
-            FileManager userRegistry = new FileManager();
-            JSONmanager jsonManager = new JSONmanager();
-
             Boolean creationState = userRegistry.accessFile(getDataDir(), "RegistroMoyaApp.json");
             Log.d("Estado", "AccesFile " + creationState.toString());
-            if (creationState) {
-                String registro = userRegistry.readPlainText();
-                Log.d("Estado", "JSON recuperado: " + registro);
-                UserManager usMG;
-                usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
-                Log.d("Estado", "Recuperados: " + usMG.showUsers());
-                usMG.addUser(user);
-                registro = jsonManager.getJSON(usMG);
-                creationState = userRegistry.writePlainText(registro);
-                return creationState;
-            }
-        }
-        return false;
+            String registro = userRegistry.readPlainText();
+            Log.d("Estado", "JSON recuperado: " + registro);
+            UserManager usMG;
+            usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
+            Log.d("Estado", "Recuperados: " + usMG.showUsers());
+            usMG.addUser(user);
+            registro = jsonManager.getJSON(usMG);
+            creationState = userRegistry.writePlainText(registro);
+            return creationState;
     }
 }

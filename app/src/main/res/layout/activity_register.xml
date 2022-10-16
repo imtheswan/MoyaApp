@@ -119,7 +119,7 @@
                 style="@style/AppTheme.Input.Pass"
                 android:ems="10"
                 android:hint="@string/hint_pass"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:minHeight="48dp"
                 android:textColorHint="#757575"/>
 
@@ -186,11 +186,11 @@
             <EditText
                 android:id="@+id/inputDescription"
                 style="@style/AppTheme.Input"
+                android:layout_height="wrap_content"
                 android:ems="10"
-                android:gravity="start"
+                android:gravity="center"
                 android:lines="5"
                 android:inputType="textMultiLine"
-
                 android:hint="@string/hint_mi_descripcion"/>
 
             <TextView
@@ -207,15 +207,15 @@
 
             <TextView
                 android:id="@+id/textView13"
+                style="@style/AppTheme.Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/labelPerfilPublico" />
 
             <ToggleButton
+                style="@style/AppTheme.Input"
                 android:id="@+id/inputPublicProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="quepod" />
+                android:gravity="center" />
 
             <Button
                 android:id="@+id/submitButton"

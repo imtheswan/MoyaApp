@@ -27,20 +27,22 @@
     </style>
 
     <style name="AppTheme.Input" parent="AppBaseTheme">
-        <item name="android:textSize">15sp</item>
-        <item name="android:fontFamily">@font/silkscreen_regular</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">280dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:background">@drawable/border_input</item>
+        <item name="android:fontFamily">@font/pressstart2p_regular</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:cursorVisible">true</item>
     </style>
 
     <style name="AppTheme.Input.Email" parent="AppTheme.Input">
         <item name="android:paddingLeft">10dp</item>
         <item name="android:drawableStart">@drawable/ic_email</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:description">@string/hint_AR</item>
     </style>
 
     <style name="AppTheme.Input.Pass" parent="AppTheme.Input">
@@ -58,7 +60,9 @@
     <style name="AppTheme.Input.Button" parent="AppTheme.Input">
         <item name="android:width">180dp</item>
         <item name="android:background">@drawable/send_button</item>
+        <item name="android:fontFamily">@font/silkscreen_regular</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="AppTheme.Input.Switch" parent="AppTheme.Input">
