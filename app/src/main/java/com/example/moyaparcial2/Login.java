@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity {
             FileManager newFile = new FileManager();
             Boolean newFileExists = newFile.accessFile(getDataDir(), "RegistroMoyaApp.json");
             Log.d("Estado", "newfile" + newFileExists.toString());
-            newFile.writePlainText(json);
+            newFile.writeByteStream(json);
             Toast.makeText(getApplicationContext(), "No hay ningun usuario registrado, regístrese", Toast.LENGTH_SHORT).show();
             hitAndRun(Register.class);
         }
@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity {
                 if(getData()){
                     DigestManager digestManager = new DigestManager();
                     fileManager.accessFile(getDataDir(),"RegistroMoyaApp.json");
-                    String registroJSON = fileManager.readPlainText();
+                    String registroJSON = fileManager.readByteStream();
                     Log.d("Estado", "JSON LOGIN " + registroJSON);
                     userManager = (UserManager) jsonManager.getObject(registroJSON, UserManager.class);
                     boolean auth = userManager.authenticateUser(user.getEmail(), user.getPassHash());

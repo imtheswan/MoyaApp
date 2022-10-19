@@ -70,7 +70,7 @@ public class Register extends AppCompatActivity {
         submit = findViewById(R.id.submitButton);
         linkLogin = findViewById(R.id.loginLinkButton);
 
-        Toast.makeText(getApplicationContext(), getDataDir().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), getDataDir().toString(), Toast.LENGTH_SHORT).show();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +78,7 @@ public class Register extends AppCompatActivity {
                 boolean valid = getData();
                 if(valid){
                     if (writeData()) {
-                        t("Buen registro @_@");
+                        t("Buen registro");
                         hitAndRun();
                     } else{
                         t("Error al registrar usuario");
@@ -204,14 +204,14 @@ public class Register extends AppCompatActivity {
     public boolean writeData() { //Escribe y registra al usuario
             Boolean creationState = userRegistry.accessFile(getDataDir(), "RegistroMoyaApp.json");
             Log.d("Estado", "AccesFile " + creationState.toString());
-            String registro = userRegistry.readPlainText();
+            String registro = userRegistry.readByteStream();
             Log.d("Estado", "JSON recuperado: " + registro);
             UserManager usMG;
             usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
             Log.d("Estado", "Recuperados: " + usMG.showUsers());
             usMG.addUser(user);
             registro = jsonManager.getJSON(usMG);
-            creationState = userRegistry.writePlainText(registro);
+            creationState = userRegistry.writeByteStream(registro);
             return creationState;
     }
 }
