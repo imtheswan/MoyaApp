@@ -152,4 +152,9 @@ public class User {
         this.error = error;
     }
 
+    public String show (){
+        String welcom = "Hola, " + this.nickName + "\nCumpleaños: " + this.getBirth();
+        return welcom;
+    }
+
 }
