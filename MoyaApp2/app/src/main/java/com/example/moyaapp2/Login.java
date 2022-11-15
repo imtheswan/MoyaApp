@@ -86,7 +86,7 @@ public class Login extends AppCompatActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(Login.this, Principal.class);
+                                    Intent intent = new Intent(Login.this, MainActivity2.class);
                                     intent.putExtra("userkey",user.getEmail());
                                     Login.this.startActivity(intent);
                                     Login.this.finish();
