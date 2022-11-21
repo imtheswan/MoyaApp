@@ -87,7 +87,7 @@
         </style>
 
         <style name="AppTheme.Input.Button.Down" parent="AppTheme.Input.Button">
-            <item name="android:width">350dp</item>
+            <item name="android:width">270dp</item>
             <item name="android:background">@drawable/register_login</item>
         </style>
 </resources>
