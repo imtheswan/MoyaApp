@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000E19"
+    android:background="#1B1E1C"
     tools:context=".Principal">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:fontFamily="@font/silkscreen_regular"
             android:gravity="center"
             android:text="@string/bienvenida"
-            android:textColor="#51FFEF"
+            android:textColor="#FF00FF"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:textSize="25sp" />
@@ -49,8 +49,10 @@
             android:layout_marginBottom="15dp"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/magicButton"
+            style="@style/AppTheme.Input.Button.Down"
+            android:textColor="@color/white"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"

@@ -217,14 +217,14 @@
                 android:id="@+id/inputPublicProfile"
                 android:gravity="center" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/submitButton"
                 style="@style/AppTheme.Input.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/registro" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginLinkButton"
                 style="@style/AppTheme.Input.Button.Down"
                 android:layout_width="match_parent"

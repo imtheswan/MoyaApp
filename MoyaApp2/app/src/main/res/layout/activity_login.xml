@@ -58,21 +58,18 @@
             android:hint="@string/hint_pass"
             android:inputType="textPassword" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonIngresar"
             style="@style/AppTheme.Input.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ingresar" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonRegister"
             style="@style/AppTheme.Input.Button.Down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/regiterLink" />
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
