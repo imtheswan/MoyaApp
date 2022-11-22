@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import DesUtil.DesUtil;
 import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
 import User.User;
@@ -39,11 +40,15 @@ public class Register extends AppCompatActivity {
 
     private Button submit;
     private Button linkLogin;
+
     // Managment object
     private FileManager userRegistry = new FileManager();
     private User user = new User();
     private JSONmanager jsonManager = new JSONmanager();
 
+    //Email verification: DES
+    private static final String KEY = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    private DesUtil desUtil = new DesUtil();
     private boolean verifiedData = false;
 
     @Override
@@ -78,6 +83,14 @@ public class Register extends AppCompatActivity {
                 boolean valid = getData();
                 if(valid){
                     if (writeData()) {
+                        try{
+                            desUtil.addStringKeyBase64(KEY);
+                            String emailCifrado = desUtil.cifrar(user.getEmail());
+                            Log.d("Estado", "Correo Cifrado para enviar: " + emailCifrado);
+                        } catch (Exception e){
+                            Log.d("Estado", "Error");
+                            e.printStackTrace();
+                        }
                         t("Buen registro");
                         hitAndRun();
                     } else{

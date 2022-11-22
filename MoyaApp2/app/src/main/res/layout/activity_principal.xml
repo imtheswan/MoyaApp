@@ -7,6 +7,9 @@
     android:background="#1B1E1C"
     tools:context=".Principal">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,4 +62,5 @@
             android:layout_height="wrap_content"
             android:text="@string/check" />
     </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

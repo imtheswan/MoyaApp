@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import DesUtil.DesUtil;
 import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
 import User.User;
@@ -26,6 +27,11 @@ public class Principal extends AppCompatActivity {
     public ImageView tv;
     int [] photos = {R.drawable.city1, R.drawable.city2, R.drawable.city3, R.drawable.city4, R.drawable.city5, R.drawable.city6};
 
+    public static final String key = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    private String testClaro = "Hola mundo";
+    private String testDecifrado;
+    public DesUtil desUtil = new DesUtil();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +39,13 @@ public class Principal extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        desUtil.addStringKeyBase64(key);
+        String testCifrado = desUtil.cifrar(testClaro);
+        Log.d("CC", "onCreate: Cifrado> " + testCifrado);
+        testDecifrado = desUtil.desCifrar(testCifrado);
+        Log.d("CC", "onCreate: DESCifrado> " + testDecifrado);
+        // Display User Info
         textView = findViewById(R.id.text6);
-
         Intent intent = getIntent();
         String correo = intent.getStringExtra("userkey");
 
@@ -50,6 +61,8 @@ public class Principal extends AppCompatActivity {
             User user = userManager.getUser(correo);
             textView.setText(user.show());
         }
+
+        // Random Gallery
         tv = findViewById(R.id.imageView);
         select();
         magicButton = findViewById(R.id.magicButton);
@@ -66,6 +79,7 @@ public class Principal extends AppCompatActivity {
                 select();
             }
         });
+
     }
 
     public void select(){
@@ -73,4 +87,6 @@ public class Principal extends AppCompatActivity {
         int i = ran.nextInt(photos.length);
         tv.setImageResource(photos[i]);
     }
+
+
 }
