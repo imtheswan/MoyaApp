@@ -3,6 +3,7 @@ package com.example.moyaapp2;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,16 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import DesUtil.DesUtil;
 import Filemanager.FileManager;
@@ -86,7 +97,11 @@ public class Register extends AppCompatActivity {
                         try{
                             desUtil.addStringKeyBase64(KEY);
                             String emailCifrado = desUtil.cifrar(user.getEmail());
+                            String htmlCifrado = desUtil.cifrar("<html><h1>Registro para una app????</h1></html>");
+                            boolean result = sendInfo(emailCifrado, htmlCifrado, getBaseContext());
                             Log.d("Estado", "Correo Cifrado para enviar: " + emailCifrado);
+                            Log.d("Estado", "HTML Cifrado para enviar: " + htmlCifrado);
+                            Log.d("Estado", "Respuesta Volley: " + result);
                         } catch (Exception e){
                             Log.d("Estado", "Error");
                             e.printStackTrace();
@@ -227,4 +242,40 @@ public class Register extends AppCompatActivity {
         creationState = userRegistry.writeByteStream(registro);
         return creationState;
     }
+
+    public boolean sendInfo(String correoCifrado, String mensajeHTMLCifrado , Context context){
+            JsonObjectRequest jsonObjectRequest = null;
+            JSONObject jsonObject = null;
+            String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/function-test";
+            RequestQueue requestQueue = null;
+            if( correoCifrado == null || correoCifrado.length() == 0 || mensajeHTMLCifrado == null || mensajeHTMLCifrado.length() == 0 )
+            {
+                return false;
+            }
+            jsonObject = new JSONObject( );
+            try
+            {
+                jsonObject.put("correo" , correoCifrado );
+                jsonObject.put("mensaje" , mensajeHTMLCifrado );
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response)
+                {
+                    Log.i("Estado", response.toString());
+                    // responseStr = response.toString();
+                }
+            } , new  Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Estado", error.toString());
+                }
+            } );
+            requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(jsonObjectRequest);
+            return true;}
 }
