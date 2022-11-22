@@ -41,4 +41,8 @@
     <string name="hint_mi_descripcion">QWERTY</string>
     <string name="hint_AR">AR action</string>
     <string name="check">Magic</string>
+
+
+    <string name="passAcces">Administrador de contraseñas</string>
+    <string name="pass">Contraseñas</string>
 </resources>

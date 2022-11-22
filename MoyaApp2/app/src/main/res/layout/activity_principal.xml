@@ -44,6 +44,13 @@
             android:textColor="#51FFEF"
             android:textSize="20sp" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Input.Button"
+            android:text="@string/passAcces" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
