@@ -45,4 +45,6 @@
 
     <string name="passAcces">Administrador de contraseñas</string>
     <string name="pass">Contraseñas</string>
+
+    <string name="nuevo">Nuevo</string>
 </resources>

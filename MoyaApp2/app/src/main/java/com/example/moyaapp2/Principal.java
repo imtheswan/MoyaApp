@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Range;
 import android.view.View;
@@ -17,10 +18,13 @@ import java.util.Random;
 import DesUtil.DesUtil;
 import Filemanager.FileManager;
 import JSONmanager.JSONmanager;
+import Password.Password;
 import User.User;
 import User.UserManager;
 
 public class Principal extends AppCompatActivity {
+
+    public Button passButton;
 
     public TextView textView;
     public Button magicButton;
@@ -80,12 +84,34 @@ public class Principal extends AppCompatActivity {
             }
         });
 
+        passButton = findViewById(R.id.button);
+        passButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        hitAndRun(PasswordManager.class);
+                    }
+                }
+        );
+
     }
 
     public void select(){
         Random ran = new Random();
         int i = ran.nextInt(photos.length);
         tv.setImageResource(photos[i]);
+    }
+
+    public void hitAndRun(Class activity){
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Principal.this, activity);
+                Principal.this.startActivity(intent);
+                Principal.this.finish();
+            }
+        });
     }
 
 
