@@ -37,7 +37,21 @@ public class PassManager {
         }
     }
 
+    public boolean deletePassword(String nombre){
+            return passwordList.remove(getPassword(nombre));
+    }
+
     public int getLenght () {
         return passwordList.size();
+    }
+
+    public String show(){
+        String re = "";
+        for (Password password: passwordList) {
+            re = re + "Nombre: " + password.getNombre() + "\n";
+            re = re + "Valor: " + password.getValor() + "\n";
+            re = re + "Owner: " + password.getOwner() + "\n";
+        }
+        return re;
     }
 }

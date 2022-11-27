@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.nfc.Tag;
@@ -43,6 +46,8 @@ public class PasswordManager extends AppCompatActivity {
     private LinearLayout container;
     private LinearLayout dialog;
     private String correo;
+    private String lastStringDialog = "";
+
     String TAG = "Estado";
 
     @Override
@@ -70,7 +75,7 @@ public class PasswordManager extends AppCompatActivity {
     {
         switch (item.getItemId() ) {
             case R.id.nuevoId:
-                createValueField();
+                createValueField("nuevo");
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -85,7 +90,7 @@ public class PasswordManager extends AppCompatActivity {
         }
     }
 
-    private void createValueField(){
+    private void createValueField(String accion){// nuevo va a crear una contraseña, otro cambiara el nombre de esta
         EditText editText = generateEditText(EditText.generateViewId(), "Nombre");
         Button ok = generateButton(Button.generateViewId(), R.string.aceptar);
         Button cancel = generateButton(Button.generateViewId(), R.string.cancelar);
@@ -118,6 +123,7 @@ public class PasswordManager extends AppCompatActivity {
                 top.removeAllViews();
                 bottom.removeAllViews();
                 dialog.removeAllViews();
+                lastStringDialog = null;
             }
         });
 
@@ -126,21 +132,30 @@ public class PasswordManager extends AppCompatActivity {
             public void onClick(View view) {
                 String nombre = editText.getText().toString();
                 if(nombre != null && nombre.length() != 0){
-                    if(agregarNuevaPass(nombre)){
-                        top.removeAllViews();
-                        bottom.removeAllViews();
-                        dialog.removeAllViews();
+                    top.removeAllViews();
+                    bottom.removeAllViews();
+                    dialog.removeAllViews();
+                    if(accion.equals("nuevo")){ // agregar contraseña
+                        agregarNuevaPass(nombre);
+                    } else{ // cambiar nombre
+                        Password lastPass = universalPass.getPassword(accion);
+                        universalPass.deletePassword(accion);
+                        lastPass.setNombre(nombre);
+                        universalPass.addPassword(lastPass);
+                        savePasswords(universalPass);
+                        updateElements();
                     }
+                    lastStringDialog = nombre;
                 } else{
                     Toast.makeText(getApplicationContext(), "Asigna un nombre", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
 
     private boolean agregarNuevaPass(String nombre){
-        Password password = new Password(nombre, "qwerty", correo);
+        Password gen = new Password();
+        Password password = new Password(nombre, gen.generatePassword() , correo);
         if(universalPass.addPassword(password)){
             Toast.makeText(getApplicationContext(), "Contraseña agregada", Toast.LENGTH_SHORT).show();
             savePasswords(universalPass);
@@ -157,24 +172,76 @@ public class PasswordManager extends AppCompatActivity {
         Log.d(TAG, "updateElements: ");
         universalPass = accessPasswords();
         container.removeAllViews();
-        if(universalPass.getLenght() <= 0){
-            Log.d(TAG, "updateElements: No hay passes");
+        int passNumber = 0;
+
+        for (int i = 0; i < universalPass.getLenght(); i++) {
+            Password password = universalPass.getPassword(i);
+            if(password.getOwner().equals(correo)){
+                passNumber ++;
+            }
+        }
+
+        if(passNumber <= 0){
+            Log.d(TAG, "updateElements: No hay contraseñas");
             TextView textView = new TextView(this);
             textView.setText("No hay contraseñas");
+            textView.setTextColor(getColor(R.color.black));
             textView.setGravity(Gravity.CENTER_VERTICAL);
             container.addView(textView);
         } else{
             for(int i = 0; i < universalPass.getLenght(); i++){
-                Log.d(TAG, "updateElements: Agregando" + universalPass.getPassword(i).getNombre());
-                TextView textView = generateTextView(universalPass.getPassword(i).getNombre());
-                textView.setTextColor(getColor(R.color.black));
-                ImageView edit = generateImageView(R.drawable.edit);
-                ImageView remove = generateImageView(R.drawable.delete);
-                LinearLayout subContainer = generateLayout();
-                subContainer.addView(textView);
-                subContainer.addView(edit);
-                subContainer.addView(remove);
-                container.addView(subContainer);
+                if(universalPass.getPassword(i).getOwner().equals(correo)){
+                    Password password = universalPass.getPassword(i);
+                    Log.d(TAG, "updateElements: Agregando" + password.getNombre());
+                    TextView textView = generateTextView(password.getNombre());
+                    textView.setTextColor(getColor(R.color.black));
+                    textView.setBackgroundResource(R.drawable.input_border);
+                    textView.setPadding(10,5,5,10);
+                    ImageView edit = generateImageView(R.drawable.edit);
+                    ImageView remove = generateImageView(R.drawable.delete);
+                    edit.setMaxHeight(30);
+                    edit.setMaxWidth(30);
+                    remove.setMaxHeight(30);
+                    remove.setMaxWidth(30);
+                    LinearLayout subContainer = generateLayout();
+                    subContainer.setGravity(Gravity.CENTER_VERTICAL);
+                    subContainer.addView(textView);
+                    subContainer.addView(edit);
+                    subContainer.addView(remove);
+                    container.addView(subContainer);
+
+                    edit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            createValueField(password.getNombre());
+                        }
+                    });
+
+                    remove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            boolean succes = universalPass.deletePassword(password.getNombre());
+                            savePasswords(universalPass);
+                            updateElements();
+                            Log.d(TAG, "onClick remove: " + succes);
+                            Toast.makeText(getApplicationContext(), "Eliminado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText(null, password.getValor());
+                            if (clipboard == null) return;
+                            clipboard.setPrimaryClip(clip);
+                            Toast.makeText(getApplicationContext(), "Se copió la contraseña", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else{
+                    Log.d(TAG, "updateElements: Skip" + universalPass.getPassword(i).getNombre());
+                }
             }
         }
     }
@@ -222,7 +289,7 @@ public class PasswordManager extends AppCompatActivity {
     private TextView generateTextView(String text){
         Log.d(TAG, "generateTextView: Creando texto " + text);
         TextView textView = new TextView(this);
-        textView.setWidth(500);
+        textView.setWidth(350);
         textView.setText(text);
         return  textView;
     }
@@ -230,8 +297,6 @@ public class PasswordManager extends AppCompatActivity {
     private ImageView generateImageView(int image){
         Log.d(TAG, "generateTextView: Creando Imagen ");
         ImageView imageView = new ImageView(this);
-        imageView.setMaxWidth(48);
-        imageView.setMaxHeight(48);
         imageView.setImageResource(image);
         return imageView;
     }

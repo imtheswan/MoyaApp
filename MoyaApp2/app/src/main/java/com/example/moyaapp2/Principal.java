@@ -60,6 +60,7 @@ public class Principal extends AppCompatActivity {
 
             fm.accessFile(getDataDir(), "RegistroMoyaApp.json");
             String registroJSON = fm.readByteStream();
+            registroJSON = desUtil.desCifrar(registroJSON);
             Log.d("Estado", "JSON LOGIN " + registroJSON);
             userManager = (UserManager) json.getObject(registroJSON, UserManager.class);
             user = userManager.getUser(correo);

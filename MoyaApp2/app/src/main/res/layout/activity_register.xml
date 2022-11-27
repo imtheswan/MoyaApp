@@ -89,9 +89,8 @@
                 style="@style/AppTheme.Input.Email"
                 android:ems="10"
                 android:minHeight="48dp"
-
                 android:hint="@string/hint_correo"
-                android:inputType="textEmailSubject"
+                android:inputType="textEmailAddress"
                 android:textColorHint="#757575" />
 
             <TextView

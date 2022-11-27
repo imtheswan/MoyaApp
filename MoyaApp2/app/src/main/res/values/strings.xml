@@ -18,6 +18,7 @@
     <string name="radioMujer">Mujer</string>
     <string name="regiterLink">No tienes una cuenta? Crea una</string>
     <string name="loginLink">Ya tienes una cuenta? Inicia sesión</string>
+    <string name="cambioPass">Olvidaste la contraseña?</string>
     <string name="ingresar">Ingresar</string>
     <string name="registro">Registro</string>
     <string name="title_activity_home">HomeActivity</string>

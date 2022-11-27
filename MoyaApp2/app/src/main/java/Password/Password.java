@@ -13,20 +13,26 @@ public class Password {
         this.owner = owner;
     }
 
+    public Password(){
+        this.nombre = "default";
+        this.valor = "default";
+        this.owner = "default";
+    }
+
     public Password(String nombre) {
         this.nombre = nombre;
         this.valor = generatePassword();
     }
 
     public String generatePassword(){
+        StringBuilder pass = new StringBuilder();
         String abc = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890!@#$%^&*()_+=-";
-        char [] charset = {' ' * 8};
         Random random = new Random();
-        for (int i = 0; i <= 10; i++ ){
+        for (int i = 0; i < 10; i++ ){
             int pos = random.nextInt(abc.length());
-            charset[i] = abc.charAt(pos);
+            pass.append(abc.charAt(pos));
         }
-        return charset.toString();
+        return pass.toString();
     }
 
     public String getNombre() {

@@ -70,6 +70,8 @@ public class Register extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        desUtil.addStringKeyBase64(KEY);
+
         inputName = findViewById(R.id.inputName);
         inputLastName = findViewById(R.id.inputLastName);
         inputNickName = findViewById(R.id.inputNickName);
@@ -94,18 +96,6 @@ public class Register extends AppCompatActivity {
                 boolean valid = getData();
                 if(valid){
                     if (writeData()) {
-                        try{
-                            desUtil.addStringKeyBase64(KEY);
-                            String emailCifrado = desUtil.cifrar(user.getEmail());
-                            String htmlCifrado = desUtil.cifrar("<html><h1>Registro para una app????</h1></html>");
-                            boolean result = sendInfo(emailCifrado, htmlCifrado, getBaseContext());
-                            Log.d("Estado", "Correo Cifrado para enviar: " + emailCifrado);
-                            Log.d("Estado", "HTML Cifrado para enviar: " + htmlCifrado);
-                            Log.d("Estado", "Respuesta Volley: " + result);
-                        } catch (Exception e){
-                            Log.d("Estado", "Error");
-                            e.printStackTrace();
-                        }
                         t("Buen registro");
                         hitAndRun();
                     } else{
@@ -138,13 +128,6 @@ public class Register extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    public void test() {
-        String text = userRegistry.readPlainText();
-        Boolean able = userRegistry.writePlainText("Hola, mundo");
-        Toast.makeText(getApplicationContext(), "TextInit: " + text, Toast.LENGTH_LONG).show();
-        Toast.makeText(getApplicationContext(), "TextInit: " + able.toString(), Toast.LENGTH_LONG).show();
     }
 
     public void t(String text) {
@@ -233,51 +216,16 @@ public class Register extends AppCompatActivity {
         Boolean creationState = userRegistry.accessFile(getDataDir(), "RegistroMoyaApp.json");
         Log.d("Estado", "AccesFile " + creationState.toString());
         String registro = userRegistry.readByteStream();
+        registro = desUtil.desCifrar(registro);
         Log.d("Estado", "JSON recuperado: " + registro);
         UserManager usMG;
         usMG = (UserManager) jsonManager.getObject(registro, UserManager.class);
         Log.d("Estado", "Recuperados: " + usMG.showUsers());
         usMG.addUser(user);
         registro = jsonManager.getJSON(usMG);
-        creationState = userRegistry.writeByteStream(registro);
+        creationState = userRegistry.writeByteStream(desUtil.cifrar(registro));
         return creationState;
     }
 
-    public boolean sendInfo(String correoCifrado, String mensajeHTMLCifrado , Context context){
-            JsonObjectRequest jsonObjectRequest = null;
-            JSONObject jsonObject = null;
-            String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/function-test";
-            RequestQueue requestQueue = null;
-            if( correoCifrado == null || correoCifrado.length() == 0 || mensajeHTMLCifrado == null || mensajeHTMLCifrado.length() == 0 )
-            {
-                return false;
-            }
-            jsonObject = new JSONObject( );
-            try
-            {
-                jsonObject.put("correo" , correoCifrado.substring(0, correoCifrado.length() -1) );
-                jsonObject.put("mensaje" , mensajeHTMLCifrado.substring(0, mensajeHTMLCifrado.length() - 1));
-                Log.i("Estado", jsonObject.toString());
-                jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        Log.i("Estado", response.toString());
-                        // responseStr = response.toString();
-                    }
-                } , new  Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Estado", error.toString());
-                    }
-                } );
-                requestQueue = Volley.newRequestQueue(context);
-                requestQueue.add(jsonObjectRequest);
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
 
-            return true;}
 }

@@ -42,7 +42,7 @@
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/hint_correo"
-            android:inputType="textPersonName" />
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/textView3"
@@ -71,5 +71,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/regiterLink" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/passReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Input.Button.Down"
+            android:text="@string/cambioPass" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
