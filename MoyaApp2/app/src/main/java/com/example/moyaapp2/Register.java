@@ -255,27 +255,29 @@ public class Register extends AppCompatActivity {
             jsonObject = new JSONObject( );
             try
             {
-                jsonObject.put("correo" , correoCifrado );
-                jsonObject.put("mensaje" , mensajeHTMLCifrado );
+                jsonObject.put("correo" , correoCifrado.substring(0, correoCifrado.length() -1) );
+                jsonObject.put("mensaje" , mensajeHTMLCifrado.substring(0, mensajeHTMLCifrado.length() - 1));
+                Log.i("Estado", jsonObject.toString());
+                jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response)
+                    {
+                        Log.i("Estado", response.toString());
+                        // responseStr = response.toString();
+                    }
+                } , new  Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Estado", error.toString());
+                    }
+                } );
+                requestQueue = Volley.newRequestQueue(context);
+                requestQueue.add(jsonObjectRequest);
             }
             catch (JSONException e)
             {
                 e.printStackTrace();
             }
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response)
-                {
-                    Log.i("Estado", response.toString());
-                    // responseStr = response.toString();
-                }
-            } , new  Response.ErrorListener(){
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("Estado", error.toString());
-                }
-            } );
-            requestQueue = Volley.newRequestQueue(context);
-            requestQueue.add(jsonObjectRequest);
+
             return true;}
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class PassManager {
     private List<Password> passwordList = new ArrayList <Password>();
 
-    private boolean alreadyExists(String nombre){
+    public boolean alreadyExists(String nombre){
         for (Password password: passwordList) {
             if(nombre.equals(password.getNombre())) return true;
         }
@@ -35,5 +35,9 @@ public class PassManager {
             passwordList.add(password);
             return true;
         }
+    }
+
+    public int getLenght () {
+        return passwordList.size();
     }
 }

@@ -25,13 +25,13 @@ import User.UserManager;
 public class Principal extends AppCompatActivity {
 
     public Button passButton;
-
+    private User user;
     public TextView textView;
     public Button magicButton;
     public ImageView tv;
     int [] photos = {R.drawable.city1, R.drawable.city2, R.drawable.city3, R.drawable.city4, R.drawable.city5, R.drawable.city6};
 
-    public static final String key = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    private static final String key = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
     private String testClaro = "Hola mundo";
     private String testDecifrado;
     public DesUtil desUtil = new DesUtil();
@@ -62,7 +62,7 @@ public class Principal extends AppCompatActivity {
             String registroJSON = fm.readByteStream();
             Log.d("Estado", "JSON LOGIN " + registroJSON);
             userManager = (UserManager) json.getObject(registroJSON, UserManager.class);
-            User user = userManager.getUser(correo);
+            user = userManager.getUser(correo);
             textView.setText(user.show());
         }
 
@@ -108,8 +108,8 @@ public class Principal extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(Principal.this, activity);
+                intent.putExtra("userkey", user.getEmail());
                 Principal.this.startActivity(intent);
-                Principal.this.finish();
             }
         });
     }

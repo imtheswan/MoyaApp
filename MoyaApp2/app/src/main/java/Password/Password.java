@@ -5,10 +5,12 @@ import java.util.Random;
 public class Password {
     private String nombre;
     private String valor;
+    private String owner;
 
-    public Password(String nombre, String valor) {
+    public Password(String nombre, String valor, String owner) {
         this.nombre = nombre;
         this.valor = valor;
+        this.owner = owner;
     }
 
     public Password(String nombre) {
@@ -41,5 +43,13 @@ public class Password {
 
     public void setValor(String valor) {
         this.valor = valor;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

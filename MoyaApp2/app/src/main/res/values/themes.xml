@@ -25,7 +25,9 @@
         <style name="LayoutContainer" parent="Theme.MoyaApp2">
             <item name="android:layout_width">320dp</item>
             <item name="android:layout_height">wrap_content</item>
-            <item name="android:gravity">center_vertical</item>
+            <item name="android:gravity">center</item>
+            <item name="android:layout_marginTop">10dp</item>
+            <item name="android:layout_marginBottom">10dp</item>
          </style>
 
         <style name="AppTheme.tittle" parent="AppBaseTheme">
